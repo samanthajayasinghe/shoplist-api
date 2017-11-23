@@ -10,8 +10,7 @@ $app->get('/', function (Request $request, Response $response, array $args) {
     return $this->renderer->render($response, 'index.phtml', $args);
 });
 
-$app->get('/token', function (Request $request, Response $response) {
+$app->post('/token', function (Request $request, Response $response) {
     $oauthservice = $this->get('oauthservice');
-    $oauthservice->getStorage();
-    return $response->withJson(['foo' => 'das'], 200);
+    $oauthservice->getToken();
 });

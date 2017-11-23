@@ -58,3 +58,5 @@ CREATE TABLE oauth_jwt (
   subject             VARCHAR(80),
   public_key          VARCHAR(2000)   NOT NULL
 );
+
+INSERT INTO oauth_clients (client_id, client_secret, redirect_uri) VALUES ("testclient", "testpass", "http://fake/");

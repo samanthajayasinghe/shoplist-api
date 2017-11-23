@@ -3,16 +3,33 @@
 namespace ShopList\Api;
 
 use OAuth2\Storage\Pdo;
+use OAuth2\Server;
+use OAuth2\GrantType\ClientCredentials;
+use OAuth2\GrantType\AuthorizationCode;
+use OAuth2\Request;
 
 class OauthService {
 
     private $config = null;
+    private $oAuthServer = null;
 
     public function __construct(\stdClass $config) {
         $this->config = $config;
+        $this->initServer();
     }
 
-    public function getStorage() {
+    public function getToken() {
+        return $this->oAuthServer->handleTokenRequest(Request::createFromGlobals())->send();
+    }
+
+    private function initServer() {
+        $storage = $this->getStorage();
+        $this->oAuthServer = new Server($storage);
+        $this->oAuthServer->addGrantType(new ClientCredentials($storage));
+        $this->oAuthServer->addGrantType(new AuthorizationCode($storage));
+    }
+
+    private function getStorage() {
         $dsn      = 'mysql:dbname='.$this->config->dbName.';host='.$this->config->dbHost;
 
         return new Pdo(

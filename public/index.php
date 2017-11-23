@@ -15,6 +15,8 @@ session_start();
 
 // Instantiate the app
 $settings = require __DIR__ . '/../src/settings.php';
+OAuth2\Autoloader::register();
+require __DIR__ . '/../src/config.php';
 $app = new \Slim\App($settings);
 
 // Set up dependencies

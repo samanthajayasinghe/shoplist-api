@@ -18,6 +18,20 @@ class OauthService {
         $this->initServer();
     }
 
+    /**
+     * Verify the token
+     */
+    public function verifyToken() {
+        if (!$this->oAuthServer->verifyResourceRequest(Request::createFromGlobals())) {
+            $this->oAuthServer->getResponse()->send();
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Get Token
+     */
     public function getToken() {
         return $this->oAuthServer->handleTokenRequest(Request::createFromGlobals())->send();
     }

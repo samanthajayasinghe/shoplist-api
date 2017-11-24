@@ -18,7 +18,12 @@ $app->post('/token', function (Request $request, Response $response) {
 //Headers should include Authorization : Bearer {tokenId}
 $app->get('/shoplist', function (Request $request, Response $response) {
     if($this->get('oauthservice')->verifyToken() ) {
-        echo 'success';
+        $this->get('shopListService')->getList();
     }
+});
 
+$app->post('/shoplist', function (Request $request, Response $response) {
+    if($this->get('oauthservice')->verifyToken() ) {
+        $this->get('shopListService')->createList();
+    }
 });

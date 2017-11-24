@@ -19,3 +19,6 @@ $container['logger'] = function ($c) {
 };
 
 $container['oauthservice'] = new ShopList\Api\OauthService($config);
+
+$container['shopListService'] = new ShopList\Api\ShopListService();
+

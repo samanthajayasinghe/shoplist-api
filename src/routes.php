@@ -24,6 +24,8 @@ $app->get('/shoplist', function (Request $request, Response $response) {
 
 $app->post('/shoplist', function (Request $request, Response $response) {
     if($this->get('oauthservice')->verifyToken() ) {
+        $items = $request->getParam('items');
+        $name = $request->getParam('name');
         $this->get('shopListService')->createList();
     }
 });

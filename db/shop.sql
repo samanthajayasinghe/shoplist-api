@@ -10,7 +10,8 @@ CREATE TABLE shop_list (
   id                  int(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   device_id           int(6),
   name                VARCHAR(255),
-  DATE                datetime,
+  shop_date           datetime,
+  created_at          datetime,
   status              enum('PENDING','IN-PROCESS','COMPLETED')
 );
 

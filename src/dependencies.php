@@ -20,5 +20,12 @@ $container['logger'] = function ($c) {
 
 $container['oauthservice'] = new ShopList\Api\OauthService($config);
 
-$container['shopListService'] = new ShopList\Api\ShopListService();
+//Set up shop list service
+$shopListMapper = new ShopList\Mapper\ShopListMapper();
+$shopListMapper->setConfig($config);
+
+$shopListService =  new ShopList\Api\ShopListService();
+$shopListService->setMapper($shopListMapper);
+
+$container['shopListService'] =$shopListService;
 

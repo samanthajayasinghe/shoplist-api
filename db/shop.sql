@@ -1,7 +1,8 @@
 CREATE TABLE device (
   id                  int(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   name                VARCHAR(255),
-  DATE                datetime,
+  shop_date           datetime,
+  created_at          datetime,
   status              enum('ACTIVE','IN-ACTIVE')
 );
 

@@ -20,9 +20,10 @@ class ShopListService extends RestApi
     public function createList($date, $items) {
         try{
             $shopList = new ShopList($date);
-            // foreach (json_decode($items) as $item){
-            //  $shopList->addItem($item->name, $item->quantity);
-            //}
+
+            foreach (json_decode($items) as $item){
+              $shopList->addItem($item->name, $item->quantity);
+            }
             $this->getMapper()->saveShopList($shopList);
         }catch (\Exception $e){
             print($e->getMessage());

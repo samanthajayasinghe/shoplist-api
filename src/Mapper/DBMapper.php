@@ -30,6 +30,10 @@ class DBMapper {
         $this->getDB()->beginTransaction();
     }
 
+    public function getLastInsertId() {
+        return $this->getDB()->lastInsertId();
+    }
+
     public function commit() {
         $this->getDB()->commit();
     }

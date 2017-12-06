@@ -10,6 +10,11 @@ class ShopList {
     private $id = 0;
 
     /**
+     * @var int
+     */
+    private $deviceId = 0;
+
+    /**
      * @var string
      */
     private $name = '';
@@ -100,6 +105,21 @@ class ShopList {
     public function getItems() {
         return $this->items;
     }
+
+    /**
+     * @return int
+     */
+    public function getDeviceId() {
+        return $this->deviceId;
+    }
+
+    /**
+     * @param int $deviceId
+     */
+    public function setDeviceId($deviceId) {
+        $this->deviceId = $deviceId;
+    }
+
 
     /**
      * @param string $name

@@ -32,9 +32,10 @@ $app->get('/shoplist', function (Request $request, Response $response) {
 $app->post('/shoplist', function (Request $request, Response $response) {
     if($this->get('oauthservice')->verifyToken() ) {
         try{
+            $deviceId = $request->getParam('deviceId');
             $items = $request->getParam('items');
             $shopDate = $request->getParam('date');
-            $this->get('shopListService')->createList($shopDate, $items);
+            $this->get('shopListService')->createList($deviceId, $shopDate, $items);
         }catch (\Exception $e){
             $data = array('message'=>$e->getMessage());
             return $response->withJson($data, 400);

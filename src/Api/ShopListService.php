@@ -17,9 +17,9 @@ class ShopListService extends RestApi
      * @param $date
      * @param $items
      */
-    public function createList($date, $items) {
+    public function createList($deviceId, $date, $items) {
         $shopList = new ShopList($date);
-
+        $shopList->setDeviceId($deviceId);
         foreach (json_decode($items) as $item){
           $shopList->addItem($item->name, $item->quantity);
         }

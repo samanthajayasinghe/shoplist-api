@@ -51,5 +51,10 @@ class Item {
         $this->quantity = $quantity;
     }
 
-
+    public function toArray() {
+        return [
+            'name' => $this->getName(),
+            'quantity' => $this->getQuantity()
+        ];
+    }
 }

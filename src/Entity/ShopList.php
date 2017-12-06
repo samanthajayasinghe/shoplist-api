@@ -108,4 +108,18 @@ class ShopList {
     public function addItem($name, $quantity) {
         $this->items[] = new Item($name, $quantity);
     }
+
+    public function toArray() {
+        $itemList = array();
+        foreach ($this->getItems() as $item) {
+            $itemList[] = $item->toArray();
+        }
+
+        return [
+            'id' => $this->getId(),
+            'name' => $this->getName(),
+            'shopDate' => $this->getShopDate(),
+            'items' => $itemList
+        ] ;
+    }
 }

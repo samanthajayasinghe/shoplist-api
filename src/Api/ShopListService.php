@@ -18,24 +18,25 @@ class ShopListService extends RestApi
      * @param $items
      */
     public function createList($date, $items) {
-        try{
-            $shopList = new ShopList($date);
+        $shopList = new ShopList($date);
 
-            foreach (json_decode($items) as $item){
-              $shopList->addItem($item->name, $item->quantity);
-            }
-            $this->getMapper()->saveShopList($shopList);
-        }catch (\Exception $e){
-            print($e->getMessage());
+        foreach (json_decode($items) as $item){
+          $shopList->addItem($item->name, $item->quantity);
         }
-
+        $this->getMapper()->saveShopList($shopList);
     }
 
     /**
-     * Get the List
+     * @param $deviceId
      */
-    public function getList() {
-
+    public function getList($deviceId) {
+        $searchParam = array($deviceId);
+        $result = $this->getMapper()->findShopList($searchParam);
+        $data = array();
+        foreach ($result as $shopList) {
+            $data[] = $shopList->toArray();
+        }
+        return $data;
     }
 
     /**

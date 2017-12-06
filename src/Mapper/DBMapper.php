@@ -22,8 +22,14 @@ class DBMapper {
     }
 
     public function executeQuery( $query, $params = array()){
-        $query = $this->getDB()->prepare($query);
-        $query->execute($params);
+        $statement= $this->getDB()->prepare($query);
+        $statement->execute($params);
+    }
+
+    public function fetchAll($query, $params = array()) {
+        $statement= $this->getDB()->prepare($query);
+        $statement->execute($params);
+        return $statement->fetchAll(\PDO::FETCH_OBJ);
     }
 
     public function beginTransaction() {

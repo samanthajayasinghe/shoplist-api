@@ -2,7 +2,6 @@
 
 use Slim\Http\Request;
 use Slim\Http\Response;
-use ShopList\Api\ShopListService;
 // Routes
 
 $app->get('/', function (Request $request, Response $response, array $args) {
@@ -18,14 +17,27 @@ $app->post('/token', function (Request $request, Response $response) {
 //Headers should include Authorization : Bearer {tokenId}
 $app->get('/shoplist', function (Request $request, Response $response) {
     if($this->get('oauthservice')->verifyToken() ) {
-        $this->get('shopListService')->getList();
+        try{
+            $deviceId = $request->getParam('deviceId');
+            $data = $this->get('shopListService')->getList($deviceId);
+            return $response->withJson($data);
+        }catch (\Exception $e){
+            $data = array('message'=>$e->getMessage());
+            return $response->withJson($data, 400);
+        }
+
     }
 });
 
 $app->post('/shoplist', function (Request $request, Response $response) {
     if($this->get('oauthservice')->verifyToken() ) {
-        $items = $request->getParam('items');
-        $shopDate = $request->getParam('date');
-        $this->get('shopListService')->createList($shopDate, $items);
+        try{
+            $items = $request->getParam('items');
+            $shopDate = $request->getParam('date');
+            $this->get('shopListService')->createList($shopDate, $items);
+        }catch (\Exception $e){
+            $data = array('message'=>$e->getMessage());
+            return $response->withJson($data, 400);
+        }
     }
 });
